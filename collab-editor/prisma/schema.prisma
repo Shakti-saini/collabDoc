@@ -1,0 +1,135 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  accounts      Account[]
+  sessions      Session[]
+  ownedDocuments    Document[]       @relation("DocumentOwner")
+  documentAccess    DocumentAccess[]
+  versions          DocumentVersion[]
+  syncOperations    SyncOperation[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+  @@id([identifier, token])
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  title       String   @default("Untitled Document")
+  content     Json     @default("{}")
+  yjsState    Bytes?
+  version     Int      @default(0)
+  ownerId     String
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  owner           User              @relation("DocumentOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  access          DocumentAccess[]
+  versions        DocumentVersion[]
+  syncOperations  SyncOperation[]
+
+  @@index([ownerId])
+}
+
+model DocumentAccess {
+  id         String   @id @default(cuid())
+  documentId String
+  userId     String
+  role       Role     @default(VIEWER)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([documentId, userId])
+  @@index([documentId])
+  @@index([userId])
+}
+
+enum Role {
+  OWNER
+  EDITOR
+  VIEWER
+}
+
+model DocumentVersion {
+  id          String   @id @default(cuid())
+  documentId  String
+  createdById String
+  title       String?
+  content     Json
+  yjsState    Bytes?
+  version     Int
+  label       String?
+  createdAt   DateTime @default(now())
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  createdBy   User     @relation(fields: [createdById], references: [id])
+
+  @@index([documentId])
+}
+
+model SyncOperation {
+  id          String        @id @default(cuid())
+  documentId  String
+  userId      String
+  operation   Json
+  vectorClock Json
+  status      SyncStatus    @default(PENDING)
+  appliedAt   DateTime?
+  createdAt   DateTime      @default(now())
+  document    Document      @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  user        User          @relation(fields: [userId], references: [id])
+
+  @@index([documentId, status])
+}
+
+enum SyncStatus {
+  PENDING
+  APPLIED
+  CONFLICTED
+  REJECTED
+}

@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 250 87% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 250 87% 95%;
+    --accent-foreground: 250 87% 30%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 250 87% 58%;
+    --radius: 0.5rem;
+    --chart-1: 250 87% 58%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 250 87% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 250 30% 20%;
+    --accent-foreground: 250 87% 80%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 250 87% 65%;
+    --chart-1: 250 87% 65%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+}
+
+/* Tiptap Editor Styles */
+.ProseMirror {
+  @apply min-h-[500px] p-8 pt-[60px] focus:outline-none;
+}
+.ProseMirror h1 { @apply text-3xl font-bold mb-4 text-foreground; }
+.ProseMirror h2 { @apply text-2xl font-semibold mb-3 text-foreground; }
+.ProseMirror h3 { @apply text-xl font-semibold mb-2 text-foreground; }
+.ProseMirror p { @apply mb-3 leading-relaxed text-foreground; }
+.ProseMirror ul { @apply list-disc pl-6 mb-3; }
+.ProseMirror ol { @apply list-decimal pl-6 mb-3; }
+.ProseMirror li { @apply mb-1; }
+.ProseMirror blockquote { @apply border-l-4 border-primary pl-4 italic my-4 text-muted-foreground; }
+.ProseMirror pre { @apply bg-muted rounded-lg p-4 font-mono text-sm my-4 overflow-x-auto; }
+.ProseMirror code { @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono; }
+.ProseMirror a { @apply text-primary underline hover:text-primary/80; }
+.ProseMirror mark { @apply bg-yellow-200 dark:bg-yellow-900 px-0.5 rounded; }
+.ProseMirror img { @apply max-w-full h-auto rounded-lg my-4; }
+.ProseMirror hr { @apply my-6 border-border; }
+.ProseMirror ul[data-type="taskList"] { @apply list-none pl-0; }
+.ProseMirror ul[data-type="taskList"] li { @apply flex items-start gap-2; }
+.ProseMirror ul[data-type="taskList"] li input { @apply mt-1 cursor-pointer; }
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  @apply text-muted-foreground pointer-events-none float-left h-0;
+}
+.ProseMirror .collaboration-cursor__caret {
+  border-left: 2px solid;
+  border-right: 2px solid;
+  margin-left: -1px;
+  margin-right: -1px;
+  pointer-events: none;
+  position: relative;
+  word-break: normal;
+}
+.ProseMirror .collaboration-cursor__label {
+  border-radius: 3px 3px 3px 0;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  left: -1px;
+  line-height: normal;
+  padding: 0.1rem 0.5rem;
+  position: absolute;
+  top: -1.4em;
+  user-select: none;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Sync animations */
+@keyframes pulse-sync {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-sync { animation: pulse-sync 1.5s ease-in-out infinite; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { @apply bg-transparent; }
+::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground; }
