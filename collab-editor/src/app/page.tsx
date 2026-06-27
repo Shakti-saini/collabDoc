@@ -40,24 +40,46 @@ export default function HomePage() {
       </section>
 
       {/* Features */}
-      <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { icon: WifiOff, title: "Offline First", desc: "Full editing capability without any network connection. Every keystroke saved locally using IndexedDB with Yjs CRDTs.", color: "text-blue-500" },
-            { icon: Cloud, title: "Smart Sync", desc: "Background sync engine queues changes and pushes when connectivity returns. Zero data loss, deterministic conflict resolution.", color: "text-green-500" },
-            { icon: History, title: "Version Time Travel", desc: "Capture named snapshots and restore to any past state. Full version history with diff visualization.", color: "text-purple-500" },
-            { icon: Users, title: "Real-time Collaboration", desc: "See collaborator cursors in real-time via WebSocket. Granular roles: Owner, Editor, Viewer.", color: "text-orange-500" },
-            { icon: Shield, title: "Enterprise Security", desc: "JWT auth, Row-Level Security in PostgreSQL, payload size limits, and malformed data rejection.", color: "text-red-500" },
-            { icon: Zap, title: "AI-Powered Writing", desc: "AI writing assistant, auto-summarization, smart suggestions, and grammar improvements via OpenAI integration.", color: "text-yellow-500" },
-          ].map(({ icon: Icon, title, desc, color }) => (
-            <div key={title} className="p-6 rounded-xl border bg-card hover:shadow-md transition-shadow">
-              <Icon className={`w-8 h-8 ${color} mb-4`} />
-              <h3 className="font-semibold text-lg mb-2">{title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+     <section className="max-w-7xl mx-auto px-6 py-16">
+  <div className="grid md:grid-cols-3 gap-8">
+    {[
+      {
+        title: "Offline First",
+        desc: "Full editing capability without any network connection. Every keystroke saved locally using IndexedDB with Yjs CRDTs.",
+      },
+      {
+        title: "Smart Sync",
+        desc: "Background sync engine queues changes and pushes when connectivity returns. Zero data loss, deterministic conflict resolution.",
+      },
+      {
+        title: "Version Time Travel",
+        desc: "Capture named snapshots and restore to any past state. Full version history with diff visualization.",
+      },
+      {
+        title: "Real-time Collaboration",
+        desc: "See collaborator cursors in real-time via WebSocket. Granular roles: Owner, Editor, Viewer.",
+      },
+      {
+        title: "Enterprise Security",
+        desc: "JWT auth, Row-Level Security in PostgreSQL, payload size limits, and malformed data rejection.",
+      },
+      {
+        title: "AI-Powered Writing",
+        desc: "AI writing assistant, auto-summarization, smart suggestions, and grammar improvements via OpenAI integration.",
+      },
+    ].map(({ title, desc }) => (
+      <div
+        key={title}
+        className="p-6 rounded-xl border bg-card hover:shadow-md transition-shadow"
+      >
+        <h3 className="font-semibold text-lg mb-2">{title}</h3>
+        <p className="text-muted-foreground text-sm leading-relaxed">
+          {desc}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
 
       {/* Offline demo banner */}
       <section className="max-w-7xl mx-auto px-6 py-12">
@@ -82,9 +104,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <p>Built with Next.js 15, Yjs, TipTap, PostgreSQL & Tailwind CSS</p>
           <div className="flex gap-4">
-            <span>Developer: Your Name</span>
-            <a href="https://github.com/yourusername" className="hover:text-foreground transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/yourusername" className="hover:text-foreground transition-colors">LinkedIn</a>
+            <span>Developer: Shakt Saini</span>
+            <a href="https://github.com/Shakti-saini/" className="hover:text-foreground transition-colors">GitHub</a>
+            <a href="https://in.linkedin.com/in/shakti-saini-5090111ab" className="hover:text-foreground transition-colors">LinkedIn</a>
           </div>
         </div>
       </footer>

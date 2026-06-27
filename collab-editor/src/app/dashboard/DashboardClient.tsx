@@ -43,7 +43,7 @@ export function DashboardClient({ user }: { user: User }) {
   const createDoc = async () => {
     setCreating(true);
     try {
-      const res = await fetch('/api/documents', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: 'Untitled Document' }) });
+      const res = await fetch('/api/documents', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: 'Demo Document' }) });
       const doc = await res.json();
       router.push(`/editor/${doc.id}`);
     } catch { toast({ title: 'Error', description: 'Could not create document', variant: 'destructive' }); setCreating(false); }
